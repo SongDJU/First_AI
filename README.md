@@ -57,7 +57,7 @@
    python -m venv venv
    source venv/bin/activate  # 또는 venv\Scripts\activate
    pip install -r requirements.txt
-   # .env 파일에 OPENAI_API_KEY=sk-... 추가
+   # .env 파일에 GOOGLE_API_KEY=your-api-key 추가
    streamlit run app.py
    ```
 
@@ -127,9 +127,9 @@ pip install -r requirements.txt
 
 4. 환경 변수 설정
 - `.env` 파일 생성
-- OpenAI API 키 설정:
+- Google API 키 설정:
 ```
-OPENAI_API_KEY=your-api-key-here
+GOOGLE_API_KEY=your-api-key
 ```
 
 ## 🚀 실행 방법
@@ -181,7 +181,7 @@ streamlit run app.py
 
 ## 📝 주의사항
 
-1. OpenAI API 키가 필요합니다
+1. Google API 키가 필요합니다
 2. 엑셀 파일 업로드 시 첫 번째 열은 반드시 '메뉴'여야 합니다
 3. 메뉴명은 정확히 입력해야 합니다
 4. 영양소 수정 시 음수는 입력할 수 없습니다
