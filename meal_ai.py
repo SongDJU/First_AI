@@ -45,6 +45,32 @@ DEFAULT_RDI = {
 DEFAULT_TOLERANCE = 10
 
 
+# 설정 파일 경로
+SETTINGS_FILE = "settings.json"
+
+
+def load_settings() -> (Dict[str, Any], int):
+    """RDI와 허용 오차 설정을 JSON 파일에서 읽어옵니다."""
+    if os.path.exists(SETTINGS_FILE):
+        try:
+            with open(SETTINGS_FILE, "r", encoding="utf-8") as f:
+                data = json.load(f)
+                rdi = data.get("rdi", DEFAULT_RDI)
+                tolerance = data.get("tolerance", DEFAULT_TOLERANCE)
+                return rdi, tolerance
+        except Exception:
+            pass
+    # 파일이 없거나 읽기 오류가 발생하면 기본값 반환
+    return DEFAULT_RDI.copy(), DEFAULT_TOLERANCE
+
+
+def save_settings(rdi: Dict[str, Any], tolerance: int) -> None:
+    """RDI와 허용 오차 설정을 JSON 파일로 저장합니다."""
+    data = {"rdi": rdi, "tolerance": tolerance}
+    with open(SETTINGS_FILE, "w", encoding="utf-8") as f:
+        json.dump(data, f, ensure_ascii=False, indent=4)
+
+
 def init_db():
     """데이터베이스 초기화 및 테이블 생성"""
     conn = sqlite3.connect("meal.db")

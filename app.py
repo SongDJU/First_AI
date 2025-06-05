@@ -273,15 +273,16 @@ elif page == "설정":
     st.subheader("영양소 기준치 (RDI)")
 
     # 현재 설정값 로드
-    rdi = meal_ai.DEFAULT_RDI.copy()
-    tolerance = meal_ai.DEFAULT_TOLERANCE
+    rdi, tolerance = meal_ai.load_settings()
 
     # 영양소별 설정
     cols = st.columns(2)
     for i, (nutrient, value) in enumerate(rdi.items()):
         with cols[i % 2]:
             rdi[nutrient] = st.number_input(
-                f"{nutrient} (기본값: {value})", value=value, min_value=0
+                f"{nutrient} (기본값: {meal_ai.DEFAULT_RDI[nutrient]})",
+                value=value,
+                min_value=0,
             )
 
     # 허용 오차 설정
@@ -290,7 +291,7 @@ elif page == "설정":
     )
 
     if st.button("설정 저장", type="primary"):
-        # TODO: 설정값을 파일이나 DB에 저장하는 기능 구현
+        meal_ai.save_settings(rdi, tolerance)
         st.success("설정이 저장되었습니다!")
 
 # 메뉴판 분석 페이지
